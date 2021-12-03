@@ -1,0 +1,3 @@
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/cmake-build-debug/CMakeFiles/BST_FinalProject.dir
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
