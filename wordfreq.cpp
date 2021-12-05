@@ -21,10 +21,8 @@ int main(int argc, const char* argv[]) {
 
         //While the file still has words waiting to be read
         while (inputfile.hasWords()) {
-
             //Output the word to standard out
             std::cout << inputfile.getNextWord() << std::endl;
-
         }
     } else {
         //Command line arguments not configured, give error

@@ -14,11 +14,11 @@ Precondition: Returns the height of the binary tree pointed to by root_ptr by ca
 long height( ) const { return (root_ptr == NULL) ? -1 : bst_height(root_ptr);  };
 
 Precondition: None
-Postcondition: Calls the book authors binary_tree_node print helper function to output the tree to stdout
+Postcondition: Calls the book/authors 'binary_tree_node' print-helper function to output the tree to stdout
 void prettyprint() const;
 
 Precondition: None
-Postcondition: The book authors binary_tree_node inorder/preorder/postorder functions are called in order to output the ordered collapsed tree
+Postcondition: The book/authors 'binary_tree_node' inorder/preorder/postorder functions are called in order to output the ordered collapsed tree
 void preorderprint() const;
 void inorderprint() const;
 void postorderprint() const;
@@ -57,32 +57,32 @@ Postcondition:  Outputs data prepended by the -> string.  This function gets cal
         typedef T value_type;
         typedef DSBTREE::node<value_type> node;
 
-        bst_tree() { root_ptr = nullptr;	}
+        bst_tree() { root_ptr = nullptr; }
         ~bst_tree() { clear(root_ptr); };
         void clear() { clear(root_ptr); root_ptr=nullptr; };
 
-        void insert( const T& newDataItem);
-        long height( ) const { return (root_ptr == NULL) ? -1 : bst_height(root_ptr);  };
+        void insert(const T& newDataItem); /* In file */
+        long height() const { return (root_ptr == NULL) ? -1 : bst_height(root_ptr);  };
 
-        void printTree() const;
-        std::string toString() const;
+        void printTree() const; /* In file */
+        std::string toString() const; /* In file */
 
         bool in_bst(const T& target) { return in_bst(target,root_ptr); }
 
         bool bst_remove(const T& target) { return bst_remove(target,root_ptr); }
 
-        void bst_remove_max(node*&, T&);
+        void bst_remove_max(node*&, T&); //// <- done in lab
 
     private:
-        void bst_insert( const T&, node*);
-        void clear(node* root);
+        void bst_insert( const T&, node*); //// <- done in lab
+        void clear(node* root); /* In file */
 
-        bool bst_remove(const T&, node*&);
-        bool in_bst(const T&, node*);
+        bool bst_remove(const T&, node*&); //// <- done in lab
+        bool in_bst(const T&, node*); //// <- done in lab
 
-        long bst_height(const node*) const;
-        void printTree(const node*, size_t= 0) const;
-        void buildStringStream(const node*, std::ostringstream&, bool& firstOutputted) const;
+        long bst_height(const node*) const; //// <- done in lab
+        void printTree(const node*, size_t= 0) const; /* In file */
+        void buildStringStream(const node*, std::ostringstream&, bool& firstOutputted) const; //// <- done in lab
 
         node* root_ptr;
     };

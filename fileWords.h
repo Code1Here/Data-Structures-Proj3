@@ -19,7 +19,7 @@ namespace DS {
     class fileWords {
     public:
         //Default constructor - NONE
-        // do not allow default constructor
+        // do not allow default constructor    <- does not or do not?
         fileWords() = delete;
 
         //VALUE Constructors
@@ -51,6 +51,7 @@ namespace DS {
         //Open the file
         bool open();
 
+
         //The file used for reading
         std::string file_name;
 
@@ -59,11 +60,11 @@ namespace DS {
 
     };
 
-    fileWords::fileWords(std::string f) : file_name(std::move(f)) {
+    fileWords::fileWords(std::string f) : file_name(std::move(f)) { //// Why is std::move called here?
         open();
     }
 
-    fileWords::fileWords(const char *f) : file_name(f) {
+    fileWords::fileWords(const char *f) : file_name(f) { //// and not here?
         open();
     }
 
@@ -101,12 +102,10 @@ namespace DS {
             return s.str();
         } else
             throw std::runtime_error("Unexpected end of file reached.");
-
     }
 
     fileWords::~fileWords() {
         fin.close();
     }
-
 }
 #endif //FREQPROJECT_FILEWORDS_H

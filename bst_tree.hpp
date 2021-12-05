@@ -16,10 +16,7 @@ namespace DS {
             newDataItem <= node_ptr->data() ?
             bst_insert(newDataItem, node_ptr->left()) : bst_insert(newDataItem, node_ptr->right());
     }
-    /**   template<typename T>
-       std::string bst_tree<T>::bst_pass(){
-           bst_height(root_ptr);
-       } */
+
     template<typename T>
     long bst_tree<T>::bst_height(const node *node_ptr) const {
         if (node_ptr == nullptr) return -1;
@@ -37,8 +34,8 @@ namespace DS {
     bool bst_tree<Item>::in_bst(const Item &newDataItem, node *node_ptr) {
         if (node_ptr == nullptr) return false;
         if (node_ptr->data() == newDataItem) return true;
-        return newDataItem <= node_ptr->data() ? in_bst(newDataItem, node_ptr->left()) : in_bst(newDataItem,
-                                                                                                node_ptr->right());
+        return newDataItem <= node_ptr->data() ? in_bst(newDataItem, node_ptr->left()) :
+                                                 in_bst(newDataItem, node_ptr->right());
     }
 
     // Precondition: root_ptr is a root pointer of a binary search tree
@@ -72,13 +69,13 @@ namespace DS {
 
     template<typename T>
     void
-    bst_tree<T>::bst_remove_max(node *&root_ptr, T &removed) {
+    bst_tree<T>::bst_remove_max(node *&root_ptr, T &removed) { // Is the highlighted error an issue (i.e. naming)?
         if (root_ptr->right() != nullptr)
             bst_remove_max(root_ptr->right(), removed);
         else {
             removed = root_ptr->data();
             node *del = root_ptr;
-            root_ptr = root_ptr->left();
+            root_ptr = root_ptr->left(); //// Was this to set root_ptr to nullptr?
             delete del;
         }
     }

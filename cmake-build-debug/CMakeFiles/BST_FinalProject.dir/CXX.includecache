@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/fileWords.h
+string
+-
+cctype
+-
+sstream
+-
+fstream
+-
+stdexcept
+-
+utility
+-
+
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/wordfreq.cpp
+iostream
+-
+fileWords.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/fileWords.h
+
