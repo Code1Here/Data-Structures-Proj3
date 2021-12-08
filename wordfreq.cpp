@@ -1,15 +1,19 @@
-/*
-Program Name: Anthony Duran
-Programmer Name: Recursive Tally
+/* wordfreq.cpp
+*** Data Structures - 9 A.M. ***
+Program Name: Recursive Frequency List
+Programmer Name: Anthony Duran
 Date Submitted: 12/12/21
-Purpose: Count and manipulate words using a BST
+Purpose: Count and sort words in a file using a BST
 Date Updated: N/A
 Purpose for Update: N/A
 Global Variable List: {avoid these}
+Data Structure: Binary Tree
 */
 
 #include <iostream>
 #include "fileWords.h"
+#include "bst_tree.h"
+#include "frequency.h"
 
 using namespace DS;
 
@@ -19,19 +23,40 @@ int main(int argc, const char* argv[]) {
         //Create object that opens file
         fileWords inputfile(argv[1]);
 
+        //If true, call frequency's increment
+        bool unique;
+        //Our BST made to be of type frequency, which also needs a type. It's type string.
+        bst_tree<frequency<std::string>> Hero;
+
         //While the file still has words waiting to be read
         while (inputfile.hasWords()) {
-            //Output the word to standard out
-            std::cout << inputfile.getNextWord() << std::endl;
+            // Create frequency obj & account for its instantiation. Use false for string comparison, then create alphabetical list.
+            frequency<std::string> a(inputfile.getNextWord(), false);
+            a.increment();
+// alternative: return the node (actually, the reference), then increment afterward
+            unique = Hero.insert(a); // Insert the object
+
+            if(!unique){
+                a = Hero.matchFound();
+                a.increment();
+            }
+//
+//            Hero.insert(a);
+
+            // TODO: create second BST w/ type's member variable set to true for numerical comparison, then create frequency list
+
+            /** Note to self -> Already confirmed: Output the .txt file to standard out */
         }
+        std::cout << "WORD FREQUENCY - Alphabetical\n[" << Hero.toString() << "]" << std::endl;
     } else {
         //Command line arguments not configured, give error
         std::cerr << "Usage: " << argv[0] << " name_of_input_file" << std::endl;
     }
+
     return 0;
 }
 
-/**
+/** EXAMPLE OF OUTPUT
 
 ./freqproject ds.txt
 

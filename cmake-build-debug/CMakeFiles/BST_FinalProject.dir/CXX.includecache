@@ -6,6 +6,32 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/bst_tree.h
+iostream
+-
+iomanip
+-
+string
+-
+sstream
+-
+node_btree.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/node_btree.h
+frequency.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/frequency.h
+bst_tree.hpp
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/bst_tree.hpp
+
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/bst_tree.hpp
+cassert
+-
+sstream
+-
+node_btree.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/node_btree.h
+bst_tree.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/bst_tree.h
+
 C:/Users/ABDuran/CLionProjects/BST_FinalProject/fileWords.h
 string
 -
@@ -20,9 +46,19 @@ stdexcept
 utility
 -
 
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/frequency.h
+iostream
+-
+
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/node_btree.h
+
 C:/Users/ABDuran/CLionProjects/BST_FinalProject/wordfreq.cpp
 iostream
 -
 fileWords.h
 C:/Users/ABDuran/CLionProjects/BST_FinalProject/fileWords.h
+bst_tree.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/bst_tree.h
+frequency.h
+C:/Users/ABDuran/CLionProjects/BST_FinalProject/frequency.h
 

@@ -48,7 +48,7 @@ namespace DS {
     public:
         typedef T value_type;
 
-        frequency() = delete; //// <- ?
+        frequency() = delete; //// <- ? PLUS, no destructor?
 
         explicit frequency(value_type s, bool on_frequency = false) : sort_on_freq(on_frequency), data(std::move(s)),
                                                                       frequency_count(0) {}
