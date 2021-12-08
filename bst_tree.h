@@ -79,12 +79,12 @@ namespace DS {
 /**
  I recommend that you keep your BST has generic as possible, right now it is customized to only support frequency.
  You should only have to modify the insert to handle the “equal” or “already in tree” case”. You can do this by adding
- a argument/parameter to the insert function. Object oriented design (author of a class. control of making it invalidated). Pass a function to the parameters as a function pointer. Example of it in the book (tree)
+ a argument/parameter to the insert function.
  **/
 
     template<typename T>
     //node*&
-    value_type& bst_tree<T>::insert(T &newDataItem) {
+    bool bst_tree<T>::insert(T &newDataItem) {
         if (root_ptr == nullptr) {
             root_ptr = new node(newDataItem);
             return true;
@@ -94,7 +94,7 @@ namespace DS {
     }
 
     template<typename T>
-    value_type& bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr) { //// Conflicting logic. Orginally had == set to true and in main used a bool named increment. If true, increment but seemed to say (for the rest) false we didn't insert. Now inversed, logic states false IF == equal; intention is false that it is unique
+    bool bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr) { //// Conflicting logic. Orginally had == set to true and in main used a bool named increment. If true, increment but seemed to say (for the rest) false we didn't insert. Now inversed, logic states false IF == equal; intention is false that it is unique
         if (node_ptr->data() == newDataItem) {
             duplicate = node_ptr;
             return false; // TODO: try passing the node to a function
@@ -107,44 +107,9 @@ namespace DS {
             node_ptr->left() = new node(newDataItem);
             return true;
         } else
-            return node_ptr->data() <= newDataItem ?
-                   bst_insert(newDataItem, node_ptr->right()) : bst_insert(newDataItem, node_ptr->left());
+           return node_ptr->data() <= newDataItem ?
+            bst_insert(newDataItem, node_ptr->right()) : bst_insert(newDataItem, node_ptr->left());
     }
-
-/**
-    template<typename T>
-    void bst_tree<T>::insert(T &newDataItem) {
-        if (root_ptr == nullptr) {
-            root_ptr = new node(newDataItem);
-        }
-        else
-             bst_insert(newDataItem, root_ptr);
-    }
-
-    template<typename T>
-    void bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr) {
-        if (node_ptr->data() == newDataItem) {
-             // TODO: try passing the node to a function
-             duplicate(node_ptr->data());
-
-        }
-
-        if (node_ptr->right() == nullptr && node_ptr->data() < newDataItem) {
-            node_ptr->right() = new node(newDataItem);
-        } else if (node_ptr->left() == nullptr) {
-            node_ptr->left() = new node(newDataItem);
-        } else
-             node_ptr->data() <= newDataItem ?
-                   bst_insert(newDataItem, node_ptr->right()) : bst_insert(newDataItem, node_ptr->left());
-    }
-
-    void duplicate(frequency<std::string> &matchFound){ // Function that is not in the class
-        matchFound.increment();
-    } */
-//    template<typename T>
-//    value_type matchFound(){
-//        return;
-//    }
 
     template<typename T>
     void bst_tree<T>::buildStringStream(const node *p, std::ostringstream &s, bool &firstOutputted) const {
