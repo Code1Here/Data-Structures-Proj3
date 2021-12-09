@@ -23,29 +23,21 @@ int main(int argc, const char* argv[]) {
         //Create object that opens file
         fileWords inputfile(argv[1]);
 
-        //If true, call frequency's increment
-        bool unique;
         //Our BST made to be of type frequency, which also needs a type. It's type string.
-        bst_tree<frequency<std::string>> Hero;
+        typedef frequency<std::string> Obj;
+        bst_tree<Obj> Hero;
 
         //While the file still has words waiting to be read
         while (inputfile.hasWords()) {
-            // Create frequency obj & account for its instantiation. Use false for string comparison, then create alphabetical list.
+            // Create frequency obj & account for its instantiation. Use false for string comparison.
             frequency<std::string> a(inputfile.getNextWord(), false);
             a.increment();
-// alternative: return the node (actually, the reference), then increment afterward
-            unique = Hero.insert(a); // Insert the object
 
-            if(!unique){
-                a = Hero.matchFound();
-                a.increment();
-            }
-//
-//            Hero.insert(a);
+            Hero.insert(a, [](Obj& value) { value.increment(); }); // Insert the object
+
+
 
             // TODO: create second BST w/ type's member variable set to true for numerical comparison, then create frequency list
-
-            /** Note to self -> Already confirmed: Output the .txt file to standard out */
         }
         std::cout << "WORD FREQUENCY - Alphabetical\n[" << Hero.toString() << "]" << std::endl;
     } else {

@@ -54,61 +54,45 @@ namespace DS {
     template<typename T>
     class bst_tree {
     public:
-        typedef T value_type; // TYPE: frequency
-        typedef DSBTREE::node<value_type> node; // TYPE: frequency
-//        typedef frequency<std::string> word_type; //// TYPE: std::string
+        typedef T value_type;
+        typedef DSBTREE::node<value_type> node;
 
         bst_tree() { root_ptr = nullptr; }
         ~bst_tree() { clear(root_ptr); }
 
         std::string toString() const;
-        bool insert(T &newDataItem);
-//        void insert(T &newDataItem);
-        value_type matchFound() { return duplicate->data(); }
+        void insert(T &newDataItem, void(*duplicate)(T&));
 
     private:
-        bool bst_insert(T &, node *);
-//        void bst_insert(T &, node *);
+        void bst_insert(T &newDataItem, node *, void(*duplicate)(T&));
         void clear(node *root);
-        void buildStringStream(const node *, std::ostringstream &, bool &firstOutputted) const; //// <- done in lab
+        void buildStringStream(const node *, std::ostringstream &, bool &firstOutputted) const;
 
         node *root_ptr;
-        node *duplicate;
     };
 
-/**
- I recommend that you keep your BST has generic as possible, right now it is customized to only support frequency.
- You should only have to modify the insert to handle the “equal” or “already in tree” case”. You can do this by adding
- a argument/parameter to the insert function.
- **/
-
     template<typename T>
-    //node*&
-    bool bst_tree<T>::insert(T &newDataItem) {
+    void bst_tree<T>::insert(T &newDataItem, void(*duplicate)(T&)) {
         if (root_ptr == nullptr) {
             root_ptr = new node(newDataItem);
-            return true;
-        }
-        else
-            return bst_insert(newDataItem, root_ptr);
+        } else bst_insert(newDataItem, root_ptr, duplicate);
     }
 
     template<typename T>
-    bool bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr) { //// Conflicting logic. Orginally had == set to true and in main used a bool named increment. If true, increment but seemed to say (for the rest) false we didn't insert. Now inversed, logic states false IF == equal; intention is false that it is unique
-        if (node_ptr->data() == newDataItem) {
-            duplicate = node_ptr;
-            return false; // TODO: try passing the node to a function
+    void bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr, void(*duplicate)(T&)) {
+        if (node_ptr->data() == newDataItem) { // It is ambiguous whether a duplicate goes left or right so encapsulation until this level seems appropriate
+            if(duplicate != nullptr) //// <- maybe we let them decide to test instead of silently failing
+                duplicate(node_ptr->data());
+            return;
         }
 
         if (node_ptr->right() == nullptr && node_ptr->data() < newDataItem) {
             node_ptr->right() = new node(newDataItem);
-            return true;
         } else if (node_ptr->left() == nullptr) {
             node_ptr->left() = new node(newDataItem);
-            return true;
         } else
            return node_ptr->data() <= newDataItem ?
-            bst_insert(newDataItem, node_ptr->right()) : bst_insert(newDataItem, node_ptr->left());
+            bst_insert(newDataItem, node_ptr->right(), duplicate) : bst_insert(newDataItem, node_ptr->left(), duplicate);
     }
 
     template<typename T>
@@ -125,15 +109,6 @@ namespace DS {
     }
 
     template<typename T>
-    void bst_tree<T>::clear(node *root) {
-        if (root != nullptr) {
-            clear(root->left());
-            clear(root->right());
-            delete root;
-        }
-    }
-
-    template<typename T>
     std::string bst_tree<T>::toString() const {
         std::ostringstream s;
         bool firstNumberOutputted = false;
@@ -141,6 +116,14 @@ namespace DS {
         return s.str();
     }
 
+    template<typename T>
+    void bst_tree<T>::clear(node *root) {
+        if (root != nullptr) {
+            clear(root->left());
+            clear(root->right());
+            delete root;
+        }
+    }
 } //End Namespace DS
 #include "bst_tree.hpp"
 #endif /* BSTREE_H_ */
