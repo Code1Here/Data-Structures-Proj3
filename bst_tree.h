@@ -1,4 +1,4 @@
-/* bst_tree.h
+/*  bst_tree.h
 *** Data Structures - 9 A.M. ***
 Program Name: Recursive Frequency List
 Programmer Name: Anthony Duran
@@ -59,17 +59,53 @@ namespace DS {
 
         bst_tree() { root_ptr = nullptr; }
         ~bst_tree() { clear(root_ptr); }
+        bst_tree(bst_tree<T>&);
 
         std::string toString() const;
-        void insert(T &newDataItem, void(*duplicate)(T&));
+        void insert(T&, void(*)(T&));
+    //  bst_tree<T>& operator=(node other);
+
+        void printTree() const; //// Delete later
 
     private:
-        void bst_insert(T &newDataItem, node *, void(*duplicate)(T&));
+        void printTree(const node*, size_t= 0) const; //// Delete later
+
         void clear(node *root);
         void buildStringStream(const node *, std::ostringstream &, bool &firstOutputted) const;
+        void bst_insert(T&, node *, void(*)(T&));
+        node * preorder(node *);
 
         node *root_ptr;
     };
+
+    template<typename T>
+    DSBTREE::node<T> * bst_tree<T>::preorder(node * rhs) {
+        if(rhs != nullptr)
+        {
+            node * copy_cat = new node(rhs->data());
+            copy_cat->left() = preorder(rhs->left());
+            copy_cat->right() = preorder(rhs->right());
+            return copy_cat;
+        }
+        return nullptr;
+    }
+
+    template<typename T>
+    bst_tree<T>::bst_tree (bst_tree<T> &value) {
+        if (value.root_ptr == nullptr) {
+            root_ptr = nullptr;
+            return; // Special case: Parameter is nullptr
+        }
+        root_ptr = static_cast<node *>(preorder(value.root_ptr));
+    }
+//
+//    template<typename T>
+//    bst_tree<T>& bst_tree<T>::operator=(node other)    // Pass by value to generate a copy.
+//    {
+//        other.swap(*this);               // Swap the state of this and the
+//        // copy we created in `other`
+//        return *this;
+//    }
 
     template<typename T>
     void bst_tree<T>::insert(T &newDataItem, void(*duplicate)(T&)) {
@@ -80,18 +116,20 @@ namespace DS {
 
     template<typename T>
     void bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr, void(*duplicate)(T&)) {
-        if (node_ptr->data() == newDataItem) { // It is ambiguous whether a duplicate goes left or right so encapsulation until this level seems appropriate
-            if(duplicate != nullptr) //// <- maybe we let them decide to test instead of silently failing
+        if (node_ptr->data() == newDataItem) { //// It is ambiguous whether a duplicate goes left or right so encapsulation until this level seems appropriate
+            if(duplicate != nullptr) // TODO: maybe we let "them" decide to test instead of silently failing
                 duplicate(node_ptr->data());
             return;
         }
 
         if (node_ptr->right() == nullptr && node_ptr->data() < newDataItem) {
             node_ptr->right() = new node(newDataItem);
+        } else if (node_ptr->right() != nullptr && node_ptr->data() < newDataItem) {
+            bst_insert(newDataItem, node_ptr->right(), duplicate);
         } else if (node_ptr->left() == nullptr) {
             node_ptr->left() = new node(newDataItem);
         } else
-           return node_ptr->data() <= newDataItem ?
+            node_ptr->data() <= newDataItem ?
             bst_insert(newDataItem, node_ptr->right(), duplicate) : bst_insert(newDataItem, node_ptr->left(), duplicate);
     }
 
@@ -124,6 +162,7 @@ namespace DS {
             delete root;
         }
     }
+
 } //End Namespace DS
 #include "bst_tree.hpp"
 #endif /* BSTREE_H_ */

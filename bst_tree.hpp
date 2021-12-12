@@ -1,4 +1,4 @@
-/* * This file is the implementation to bst_tree * */
+/* * This file is the implementation to bst_tree for lab * */
 #include <cassert>
 #include <sstream>
 #include "node_btree.h"
@@ -21,42 +21,7 @@ namespace DS {
                bst_insert(newDataItem, node_ptr->left()) : bst_insert(newDataItem, node_ptr->right());
        } */
 
-    /*  template <typename T> //node*&
-      void bst_tree<T>::insert(T& newDataItem) { //TODO: review -> alternative for string argument
-          frequency<std::string> a(newDataItem, false);
-          if ( root_ptr == nullptr )
-              root_ptr = new node(a);
-          else bst_insert(a, root_ptr);
-      }
-
-      template<typename T>
-      void bst_tree<T>::bst_insert(T &newDataItem, node *node_ptr) {
-          if (node_ptr->left() == nullptr && node_ptr->data() > newDataItem) {
-              node_ptr->left() = new node(newDataItem);
-          } else if (node_ptr->right() == nullptr && node_ptr->data() <= newDataItem) {
-              node_ptr->right() = new node(newDataItem);
-          } else
-              newDataItem <= node_ptr->data() ?
-              bst_insert(newDataItem, node_ptr->left()) : bst_insert(newDataItem, node_ptr->right());
-      }*/
-
-/**
-     template<typename T>
-    void bst_tree<T>::buildStringStream(const node *p, std::ostringstream &s, bool &firstOutputted) const {
-        if (p == nullptr)
-            return;
-        buildStringStream(p->left(), s, firstOutputted);
-        if (firstOutputted)
-            s << ", " << p->data(); // Comma first because it'll get around the last print
-        else
-            s << p->data();
-        firstOutputted = true;
-        buildStringStream(p->right(), s, firstOutputted);
-    }
- * */
-
-
-   /* template<typename T>
+    template<typename T>
     void bst_tree<T>::printTree() const {
         if (root_ptr == nullptr)
             std::cout << "Empty tree" << std::endl;
@@ -75,11 +40,22 @@ namespace DS {
         //However, we go RIGHT first instead of LEFT
         if (node_ptr != nullptr) {
             printTree(node_ptr->right(), depth + 1);
-            std::cout << std::setw(4 * depth) << ""; // Indent 4*depth spaces.
+            std::cout << std::setw(8 * depth) << ""; // Indent 4*depth spaces.
             std::cout << node_ptr->data() << std::endl;
             printTree(node_ptr->left(), depth + 1);
         }
-    } */
-
+    }
+//
+//    template <typename T>
+//    void bst_tree<T>::copy_helper(node* copy_to, const node* copy_from) const
+//    {
+//        if(copy_from == NULL){
+//            copy_to = NULL;
+//        } else{
+//            copy_to = new node(copy_to->data());
+//            copy_helper(copy_to->left(), copy_from->left());
+//            copy_helper(copy_to->right(), copy_from->right());
+//        }
+//    }
 
 } //end namespace DS
