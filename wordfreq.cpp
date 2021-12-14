@@ -17,9 +17,11 @@ Data Structure: Binary Tree
 
 using namespace DS;
 
-int main(int argc, const char* argv[]) {
 
-    if (argc==2) {
+
+int main(int argc, const char *argv[]) {
+
+    if (argc == 2) {
         //Create object that opens file
         fileWords inputfile(argv[1]);
 
@@ -33,14 +35,21 @@ int main(int argc, const char* argv[]) {
             info.increment();
 
             // Insert info into bst with a function pointer lambda to tally duplicates
-            Hero.insert(info, [](Obj& value) { value.increment(); });
+            Hero.insert(info, [](Obj &value) { value.increment(); });
         }
         std::cout << "WORD FREQUENCY - Alphabetical\n[" << Hero.toString() << "]\n" << std::endl;
-
         // TODO: create second BST w/ type's member variable set to true for numerical comparison, then create frequency list
 
-        bst_tree<Obj> Villain(Hero); // value semantics: copy constructor has been set to be used. Assignment operator next.
-        std::cout << "WORD FREQUENCY - Alphabetical\n[" << Villain.toString() << "]" << std::endl;
+        bst_tree<Obj> Villain;
+
+/*        Villain.inorder(Hero, [](Obj &value) -> Obj & {
+            Obj A(value.getData(), value.getFrequency());
+            return A;
+        });   */
+
+        Villain.inorder(Hero);
+
+        std::cout << "WORD FREQUENCY - Lowest to Highest\n[" << Villain.toString() << "]" << std::endl;
 
     } else {
         //Command line arguments not configured, give error

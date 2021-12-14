@@ -19,7 +19,7 @@ namespace DS {
            } else
                newDataItem <= node_ptr->data() ?
                bst_insert(newDataItem, node_ptr->left()) : bst_insert(newDataItem, node_ptr->right());
-       } */
+       }
 
     template<typename T>
     void bst_tree<T>::printTree() const {
@@ -56,6 +56,6 @@ namespace DS {
 //            copy_helper(copy_to->left(), copy_from->left());
 //            copy_helper(copy_to->right(), copy_from->right());
 //        }
-//    }
+/*/
 
 } //end namespace DS
